@@ -12,8 +12,28 @@ var core_1 = require('@angular/core');
 var task_service_1 = require('../../services/task.service');
 var TasksComponent = (function () {
     function TasksComponent(taskService) {
+        var _this = this;
         this.taskService = taskService;
+        this.taskService.getTasks()
+            .subscribe(function (tasks) {
+            // console.log(tasks);
+            _this.tasks = tasks;
+        });
     }
+    TasksComponent.prototype.addTask = function (event) {
+        var _this = this;
+        event.preventDefault();
+        var newTask = {
+            title: this.title,
+            isDone: false
+        };
+        // console.log(newTask);
+        this.taskService.addTask(newTask)
+            .subscribe(function (task) {
+            _this.tasks.push(task);
+            _this.title = '';
+        });
+    };
     TasksComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

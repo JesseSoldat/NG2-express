@@ -8,12 +8,30 @@ import {TaskService} from '../../services/task.service';
 	templateUrl: 'tasks.component.html'
 })
 export class TasksComponent {
-	task: Task[];
+	tasks: Task[];
 	title: string;
 
 	constructor(private taskService: TaskService){
-		
+		this.taskService.getTasks()
+			.subscribe(tasks => {
+				// console.log(tasks);
+				this.tasks = tasks;
+			});	
 	}
+	addTask(event){
+		event.preventDefault();
+		let newTask = {
+			title: this.title,
+			isDone: false
+		};
+		// console.log(newTask);
+		this.taskService.addTask(newTask)
+			.subscribe(task => {
+				this.tasks.push(task);
+				this.title = '';
+			});
+	}
+
 
 
 }
