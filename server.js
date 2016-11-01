@@ -3,6 +3,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
+var tasks = require('./routes/tasks');
 
 var port = 3000;
 
@@ -23,6 +24,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use('/', index);
+app.use('/api', tasks);
 
 app.listen(port, function(){
 	console.log('Server started at: '+ port);
