@@ -27,4 +27,12 @@ export class TaskService{
 			.map(res => res.json());
 	}
 
+	updateStatus(task){
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+
+		return this.http.put('/api/task/'+task._id, JSON.stringify(task), {headers: headers})
+				.map(res => res.json());
+	}
+
 }
